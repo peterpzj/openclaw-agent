@@ -1,0 +1,11 @@
+# openclaw-agent
+
+## 依赖
+
+待补充（取决于接入的模型）
+
+## 安装
+
+```bash
+pip install -r requirements.txt
+```
