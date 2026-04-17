@@ -1,11 +1,15 @@
-# openclaw-agent
+# openclaw-agent dependencies
 
-## 依赖
+# Core
+# (engine uses built-in capabilities)
 
-待补充（取决于接入的模型）
+# PPT Generation
+pptxgenjs>=3.12.0
 
-## 安装
+# Web UI
+streamlit>=1.28.0
 
-```bash
-pip install -r requirements.txt
-```
+# Development
+pytest>=7.4.0
+black>=23.0.0
+flake8>=6.0.0
