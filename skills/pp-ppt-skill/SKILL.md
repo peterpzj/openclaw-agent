@@ -1,5 +1,5 @@
 ---
-name: ppt-maker
+name: pp-ppt-skill
 description: "AI驱动的专业PPT制作技能。基于三节点工作流（内容提炼→大纲构建→幻灯片生成），支持述职报告、学术汇报、工作汇报等场景。通过卡片式框架生成结构清晰的演示文稿，输出标准PPTX文件。触发词：制作PPT、创建幻灯片、做PPT、述职报告、工作汇报、学术答辩、项目汇报、成果展示、演示文稿、PPT模板、生成PPT、帮我做PPT、把内容做成PPT。"
 license: MIT
 metadata:
@@ -11,7 +11,7 @@ metadata:
     - https://github.com/peterpzj/openclaw-agent
 ---
 
-# 🎴 PPT Maker - 智能幻灯片制作技能 v5.0
+# 🎴 PP-PPT-Skill - 智能幻灯片制作技能 v5.0
 
 基于三节点工作流的 AI PPT 生成系统，支持 36 种主题 + 14 种模板，可生成专业级述职/汇报/学术演示文稿。
 
