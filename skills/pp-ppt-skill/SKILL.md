@@ -3,12 +3,13 @@ name: pp-ppt-skill
 description: "AI驱动的专业PPT制作技能。基于三节点工作流（内容提炼→大纲构建→幻灯片生成），支持述职报告、学术汇报、工作汇报等场景。通过卡片式框架生成结构清晰的演示文稿，输出标准PPTX文件。触发词：制作PPT、创建幻灯片、做PPT、述职报告、工作汇报、学术答辩、项目汇报、成果展示、演示文稿、PPT模板、生成PPT、帮我做PPT、把内容做成PPT。"
 license: MIT
 metadata:
-  version: "5.0.0"
+  version: "6.0.0"
   category: productivity
   author: "小胖 AI 助手"
   language: "zh-CN"
   sources:
     - https://github.com/peterpzj/openclaw-agent
+    - https://github.com/peterpzj/openclaw-agent (整合小马 pptx-generator)
 ---
 
 # 🎴 PP-PPT-Skill - 智能幻灯片制作技能 v5.0
@@ -64,6 +65,96 @@ metadata:
 └─────────────────────────────┘
        ↓
    生成 .pptx 文件
+
+---
+
+## 📦 标准化 JSON 输出格式（与小马 pptx-generator 对接）
+
+**版本：v6.0+** 支持输出结构化 JSON，供小马的 compile.js 直接渲染。
+
+### 输出格式
+
+```json
+{
+  "slides": [
+    {
+      "type": "cover",
+      "title": "封面标题",
+      "subtitle": "副标题（可选）"
+    },
+    {
+      "type": "toc",
+      "title": "目录",
+      "items": ["章节1", "章节2", "章节3"]
+    },
+    {
+      "type": "content",
+      "title": "页面标题",
+      "cards": [
+        {"type": "pain_point", "header": "背景", "body": "..."},
+        {"type": "innovation", "header": "方案", "body": "..."},
+        {"type": "metric", "header": "成果", "body": "..."}
+      ]
+    },
+    {
+      "type": "summary",
+      "title": "总结",
+      "bullets": ["要点1", "要点2", "要点3"]
+    },
+    {
+      "type": "thank_you",
+      "title": "谢谢",
+      "subtitle": "Q&A"
+    }
+  ],
+  "theme": {
+    "primary": "1F5C99",
+    "secondary": "2E7D32",
+    "accent": "1565C0",
+    "light": "F5F5F5",
+    "bg": "FFFFFF"
+  }
+}
+```
+
+### Theme 五色 Contract（必须严格遵循）
+
+| Key | 用途 | 示例 |
+|-----|------|------|
+| `primary` | 深色，用于标题/重点 | `"1F5C99"` |
+| `secondary` | 次深色，用于正文 | `"2E7D32"` |
+| `accent` | 强调色，用于高亮 | `"1565C0"` |
+| `light` | 浅色，用于背景装饰 | `"F5F5F5"` |
+| `bg` | 背景色 | `"FFFFFF"` |
+
+**重要：不要使用其他 key 名**，如 background、text、muted 等。
+
+### Slide Type 说明
+
+| type | 说明 | 卡片支持 |
+|------|------|----------|
+| `cover` | 封面页 | ❌ |
+| `toc` | 目录页 | ❌ |
+| `content` | 内容页（支持 cards） | ✅ 1-3 列 |
+| `summary` | 总结页 | ❌ |
+| `thank_you` | 致谢页 | ❌ |
+
+### 卡片子类型（仅用于 cards 数组内）
+
+| 子类型 | 用途 |
+|--------|------|
+| `pain_point` | 背景/痛点 |
+| `innovation` | 方案/创新 |
+| `metric` | 成果/量化（数字突出） |
+
+### 调用示例
+
+```bash
+python3 /root/openclaw-agent/skills/pp-ppt-skill/scripts/create_ppt.py \
+  --title "2024年度述职报告" \
+  --slides "cover|toc|content|summary|thank_you" \
+  --style professional \
+  --output-json /tmp/ppt-output.json
 ```
 
 ## 快速使用
@@ -253,5 +344,5 @@ A: 使用 `python -m markitdown` 提取内容后重新生成
 
 ---
 
-*PPT Maker v5.0 - 基于三节点工作流的智能PPT生成系统*
+*PP-PPT-Skill v6.0 - 基于三节点工作流的智能PPT生成系统，与小马 pptx-generator 整合*
 *GitHub: https://github.com/peterpzj/openclaw-agent*
